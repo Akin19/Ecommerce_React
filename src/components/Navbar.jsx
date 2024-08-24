@@ -1,8 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
+  const { setShowSearch } = useContext(ShopContext);
+
+  const [isToggled, setIsToggled] = useState(false);
+
+  const location = useLocation();
+  const hideSearchIconOn = ["/about", "/contact"];
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled); // Toggle the state
+    isToggled ? setShowSearch(true) : setShowSearch(false);
+  };
+
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       <Link to="/">
@@ -27,7 +40,14 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-6">
-        <img src={assets.search_icon} className="w-5 cursor-pointer" alt="" />
+        {!hideSearchIconOn.includes(location.pathname) && (
+          <img
+            onClick={handleToggle}
+            src={assets.search_icon}
+            className="w-5 cursor-pointer"
+            alt=""
+          />
+        )}
         <div className="group relative">
           <img
             src={assets.profile_icon}
