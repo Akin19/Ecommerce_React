@@ -20,8 +20,6 @@ const SearchBar = () => {
     } else {
       setVisible(true);
     }
-
-    console.log(location.pathname);
   }, [location]);
 
   return showSearch && visible ? (

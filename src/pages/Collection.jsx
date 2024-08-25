@@ -52,6 +52,7 @@ const Collection = () => {
         subCategory.includes(item.subCategory)
       );
     }
+
     setFilterProducts(productsCopy);
   };
 
@@ -71,6 +72,10 @@ const Collection = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    setFilterProducts(products);
+  }, []);
 
   useEffect(() => {
     sortProduct();
@@ -197,7 +202,7 @@ const Collection = () => {
           {filterProducts.map((item, index) => (
             <ProductItem
               key={index}
-              id={item.id}
+              id={item._id}
               name={item.name}
               price={item.price}
               image={item.image}
